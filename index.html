@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>School Enterprise Challenge Việt Nam — Khởi nghiệp Học đường</title>
+<meta name="description" content="Chương trình Giáo dục Khởi nghiệp Toàn cầu dành cho học sinh, do học sinh làm chủ và được ghi nhận quốc tế. Đại diện chính thức tại Việt Nam: TOMATO Education.">
+<meta name="keywords" content="School Enterprise Challenge, School Enterprise Challenge Vietnam, khởi nghiệp học đường, TOMATO Education, Teach A Man To Fish, Young Founders Lab">
+<meta property="og:title" content="School Enterprise Challenge Việt Nam">
+<meta property="og:description" content="Để học sinh dám nghĩ, dám làm bằng một doanh nghiệp của chính mình.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<link rel="icon" href="img/logo-sec.webp" type="image/webp">
+<link rel="preload" as="image" href="img/students-stall.webp" fetchpriority="high">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+
+<!-- ============ Bộ icon dùng chung (SVG sprite) ============ -->
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<defs>
+<g id="i-badge-check"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></g>
+<g id="i-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></g>
+<g id="i-trophy"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></g>
+<g id="i-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></g>
+<g id="i-arrow-up-right"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></g>
+<g id="i-graduation-cap"><path d="M21.42 10.92a1 1 0 0 0-.02-1.84L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.83l8.57 3.91a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></g>
+<g id="i-heart-handshake"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"/><path d="m18 15-2-2"/><path d="m15 18-2-2"/></g>
+<g id="i-lightbulb"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></g>
+<g id="i-check-circle"><path d="M21.8 10A10 10 0 1 1 17 3.34"/><path d="m9 11 3 3L22 4"/></g>
+<g id="i-flag"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/></g>
+<g id="i-award"><path d="M15.48 12.89 17 22l-5-3-5 3 1.52-9.11"/><circle cx="12" cy="8" r="6"/></g>
+<g id="i-star"><path d="M11.52 2.3a.53.53 0 0 1 .95 0l2.31 4.68a2.12 2.12 0 0 0 1.6 1.16l5.16.75a.53.53 0 0 1 .3.91l-3.74 3.63a2.12 2.12 0 0 0-.61 1.88l.88 5.14a.53.53 0 0 1-.77.56l-4.62-2.43a2.12 2.12 0 0 0-1.97 0L6.4 21.01a.53.53 0 0 1-.77-.56l.88-5.14a2.12 2.12 0 0 0-.61-1.88L2.16 9.8a.53.53 0 0 1 .29-.91l5.17-.75a2.12 2.12 0 0 0 1.6-1.16z"/></g>
+<g id="i-medal"><path d="M7.21 15 2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15"/><path d="M11 12 5.12 2.2"/><path d="m13 12 5.88-9.8"/><path d="M8 7h8"/><circle cx="12" cy="17" r="5"/><path d="M12 18v-2h-.5"/></g>
+<g id="i-school"><path d="M14 22v-4a2 2 0 1 0-4 0v4"/><path d="m18 10 3.45 1.72a1 1 0 0 1 .55.9V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-7.38a1 1 0 0 1 .55-.9L6 10"/><path d="M18 5v17"/><path d="m4 6 7.11-3.55a2 2 0 0 1 1.79 0L20 6"/><path d="M6 5v17"/><circle cx="12" cy="9" r="2"/></g>
+<g id="i-calendar"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></g>
+<g id="i-map-pin"><path d="M20 10c0 4.99-5.54 10.19-7.4 11.8a1 1 0 0 1-1.2 0C9.54 20.19 4 14.99 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></g>
+<g id="i-wifi"><path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.86a10 10 0 0 1 14 0"/><path d="M8.5 16.43a5 5 0 0 1 7 0"/></g>
+<g id="i-chevron-left"><path d="m15 18-6-6 6-6"/></g>
+<g id="i-chevron-right"><path d="m9 18 6-6-6-6"/></g>
+<g id="i-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></g>
+<g id="i-phone"><path d="M13.83 16.57a1 1 0 0 0 1.22-.3l.35-.47A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.47.35a1 1 0 0 0-.29 1.24 14 14 0 0 0 6.39 6.38"/></g>
+<g id="i-globe"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></g>
+<g id="i-menu"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></g>
+<g id="i-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></g>
+<g id="i-send"><path d="M14.54 21.69a.5.5 0 0 0 .94-.03l6.5-19a.5.5 0 0 0-.64-.63l-19 6.5a.5.5 0 0 0-.02.93l7.93 3.18a2 2 0 0 1 1.11 1.11z"/><path d="m21.85 2.15-10.94 10.94"/></g>
+<g id="i-users-2"><path d="M14 19a6 6 0 0 0-12 0"/><circle cx="8" cy="9" r="4"/><path d="M22 19a6 6 0 0 0-6-6 4 4 0 1 0 0-8"/></g>
+</defs>
+</svg>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="siteHeader">
+  <nav class="container nav">
+    <a href="#top" class="brand">
+      <img src="img/logo-sec.webp" alt="School Enterprise Challenge" width="400" height="158" decoding="async">
+      <span class="brand-sep"></span>
+      <span class="brand-vn">Việt Nam</span>
+    </a>
+
+    <div class="nav-links">
+      <a href="#gioi-thieu">Giới thiệu</a>
+      <a href="#doi-tac">Đối tác</a>
+      <a href="#hanh-trinh">Hành trình</a>
+      <a href="#tham-gia">Cách tham gia</a>
+      <a href="#du-an">Dự án</a>
+      <a href="#su-kien">Sự kiện</a>
+    </div>
+
+    <a href="#dang-ky" class="btn btn-primary nav-cta">Nhận tư vấn</a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Mở menu" aria-expanded="false">
+      <svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-menu"/></svg>
+    </button>
+  </nav>
+
+  <div class="nav-mobile" id="navMobile" hidden>
+    <div class="container">
+      <a href="#gioi-thieu">Giới thiệu</a>
+      <a href="#doi-tac">Đối tác</a>
+      <a href="#hanh-trinh">Hành trình</a>
+      <a href="#tham-gia">Cách tham gia</a>
+      <a href="#du-an">Dự án</a>
+      <a href="#su-kien">Sự kiện</a>
+      <a href="#dang-ky" class="btn btn-primary">Nhận tư vấn</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="hero">
+  <span class="blob blob-a"></span>
+  <span class="blob blob-b"></span>
+
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="hero-eyebrow reveal">TOMATO Education · Đại diện chính thức tại Việt Nam</p>
+      <h1 class="hero-title reveal" data-delay="60">Chương trình Giáo dục Khởi nghiệp Toàn cầu dành cho Học sinh</h1>
+      <p class="hero-sub reveal" data-delay="120">
+        School Enterprise Challenge giúp các đội học sinh tự nghĩ ý tưởng, lập kế hoạch,
+        ra mắt và vận hành một doanh nghiệp học đường thật — bán hàng cho khách hàng thật
+        và tạo ra doanh thu thật.
+      </p>
+
+      <div class="hero-cta reveal" data-delay="180">
+        <a href="#tham-gia" class="btn btn-primary">Tìm hiểu cách tham gia <svg class="ic" viewBox="0 0 24 24"><use href="#i-arrow-right"/></svg></a>
+        <a href="#dang-ky" class="btn btn-secondary">Nhận tư vấn cho Trường học</a>
+      </div>
+
+      <div class="hero-chips reveal" data-delay="260">
+        <span class="chip"><svg class="ic c-gold" viewBox="0 0 24 24"><use href="#i-badge-check"/></svg> Tài nguyên mở cho mọi trường</span>
+        <span class="chip"><svg class="ic c-teal" viewBox="0 0 24 24"><use href="#i-users"/></svg> Do học sinh làm chủ</span>
+        <span class="chip"><svg class="ic c-brand" viewBox="0 0 24 24"><use href="#i-trophy"/></svg> Ghi nhận quốc tế</span>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal" data-delay="100">
+      <div class="hero-frame">
+        <div class="hero-photo">
+          <img src="img/students-stall.webp" alt="Học sinh vận hành doanh nghiệp học đường cùng School Enterprise Challenge" width="1000" height="878" fetchpriority="high" decoding="async">
+        </div>
+      </div>
+      <div class="hero-stat hero-stat-bl">
+        <p class="hero-stat-n c-brand">2011</p>
+        <p class="hero-stat-l">Khởi đầu toàn cầu</p>
+      </div>
+      <div class="hero-stat hero-stat-tr">
+        <p class="hero-stat-n c-teal">7</p>
+        <p class="hero-stat-l">Cột mốc khởi nghiệp</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GIỚI THIỆU ============ -->
+<section id="gioi-thieu" class="section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal">
+        <span class="eyebrow">Giới thiệu &amp; Uy tín</span>
+        <h2 class="section-title">School Enterprise Challenge là gì?</h2>
+        <p class="section-sub lead">
+          School Enterprise Challenge là một chương trình giáo dục khởi nghiệp toàn cầu,
+          được tổ chức bởi tổ chức phi lợi nhuận Teach A Man To Fish. Từ khi ra đời năm 2011,
+          chương trình đã đồng hành cùng hàng trăm nghìn học sinh ở rất nhiều quốc gia.
+        </p>
+        <p class="p-soft">
+          Điểm cốt lõi của School Enterprise Challenge là học qua làm thật: các đội học sinh
+          tự nghĩ ra ý tưởng, lập kế hoạch, ra mắt và vận hành một doanh nghiệp học đường thật
+          — bán hàng cho khách hàng thật và tạo ra doanh thu thật. Học sinh là người làm chủ;
+          giáo viên đóng vai người hướng dẫn, đồng hành.
+        </p>
+
+        <div class="note note-gold">
+          <svg class="ic c-gold-dark" viewBox="0 0 24 24"><use href="#i-users-2"/></svg>
+          <p>School Enterprise Challenge mở cho mọi trường học ở mọi quốc gia — từ mầm non,
+          tiểu học, THCS, THPT đến trường nghề (bậc đại học không thuộc đối tượng). Học sinh
+          tham gia theo đội 15–45 em, khuyến khích nhiều độ tuổi để anh chị lớn dìu dắt em nhỏ.</p>
+        </div>
+      </div>
+
+      <div class="about-spirit">
+        <h3 class="h-md reveal">Ba điều làm nên tinh thần School Enterprise Challenge</h3>
+        <ul class="spirit-list">
+          <li class="reveal" data-delay="60">
+            <span class="spirit-ring r-brand"><span class="spirit-tile t-brand"><svg class="ic ic-md" viewBox="0 0 24 24"><use href="#i-badge-check"/></svg></span></span>
+            <div>
+              <h4>Trọn bộ tài nguyên mở</h4>
+              <p>Mọi tài nguyên, mẫu biểu và hướng dẫn đều được cung cấp cho nhà trường, không mất phí tham gia.</p>
+            </div>
+          </li>
+          <li class="reveal" data-delay="150">
+            <span class="spirit-ring r-gold"><span class="spirit-tile t-gold"><svg class="ic ic-md" viewBox="0 0 24 24"><use href="#i-users"/></svg></span></span>
+            <div>
+              <h4>Do học sinh làm chủ</h4>
+              <p>Các em tự ra quyết định, tự chịu trách nhiệm và trưởng thành qua trải nghiệm.</p>
+            </div>
+          </li>
+          <li class="reveal" data-delay="240">
+            <span class="spirit-ring r-teal"><span class="spirit-tile t-teal"><svg class="ic ic-md" viewBox="0 0 24 24"><use href="#i-trophy"/></svg></span></span>
+            <div>
+              <h4>Ghi nhận quốc tế</h4>
+              <p>Thành quả được công nhận bằng huy hiệu và chứng nhận cấp độ Đồng, Bạc, Vàng.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="stats reveal">
+      <div class="stat"><p class="stat-v">2011</p><p class="stat-l">Khởi đầu toàn cầu</p></div>
+      <div class="stat"><p class="stat-v">Hàng trăm nghìn</p><p class="stat-l">Học sinh đã tham gia</p></div>
+      <div class="stat"><p class="stat-v">Nhiều quốc gia</p><p class="stat-l">Trên khắp thế giới</p></div>
+      <div class="stat"><p class="stat-v">Teach A Man To Fish</p><p class="stat-l">Tổ chức phi lợi nhuận sáng lập</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ĐỐI TÁC ============ -->
+<section id="doi-tac" class="section sec-teal">
+  <div class="container">
+    <div class="center reveal">
+      <span class="eyebrow eyebrow-teal">Mạng lưới tại Việt Nam</span>
+      <h2 class="section-title">Ban Cố vấn &amp; Mạng lưới Hỗ trợ tại Việt Nam</h2>
+    </div>
+
+    <!-- 1. Đơn vị đại diện -->
+    <div class="reveal mt-lg">
+      <h3 class="h-sm center">Đơn vị đại diện chính thức tại Việt Nam</h3>
+      <div class="operator">
+        <div class="operator-photo">
+          <img src="img/training-2.webp" alt="TOMATO Education" width="640" height="345" loading="lazy" decoding="async">
+        </div>
+        <div class="operator-body">
+          <h4>TOMATO Education</h4>
+          <p>Hệ thống trường ngoại khóa chuyên sâu đầu tiên tại Việt Nam, đại diện chính thức
+            của Design for Change – phong trào Trẻ em lớn nhất thế giới. TOMATO nhận giải
+            “Tổ chức giáo dục tận tâm với học sinh” (Duty of Care to Students) do ASIC trao tặng năm 2023.</p>
+          <span class="tag-gold"><svg class="ic" viewBox="0 0 24 24"><use href="#i-award"/></svg> Giải “Duty of Care to Students” — ASIC 2023</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Ban cố vấn -->
+    <div class="reveal mt-xl">
+      <h3 class="h-sm center">Ban Cố Vấn tại Việt Nam</h3>
+      <p class="center muted sm">Đội ngũ chuyên gia đồng hành cùng các đội thi và nhà trường.</p>
+
+      <div class="advisors" id="advisors">
+        <div class="advisors-track" id="advisorsTrack">
+          <figure class="advisor"><span class="avatar">NA</span><figcaption><b>TS. Nguyễn An</b><i>Cố vấn Học thuật</i></figcaption></figure>
+          <figure class="advisor"><span class="avatar">TB</span><figcaption><b>ThS. Trần Bình</b><i>Chuyên gia Khởi nghiệp</i></figcaption></figure>
+          <figure class="advisor"><span class="avatar">LC</span><figcaption><b>Bà Lê Chi</b><i>Giám đốc Chương trình</i></figcaption></figure>
+          <figure class="advisor"><span class="avatar">PD</span><figcaption><b>Ông Phạm Dũng</b><i>Cố vấn Doanh nghiệp</i></figcaption></figure>
+          <figure class="advisor"><span class="avatar">HG</span><figcaption><b>TS. Hoàng Giang</b><i>Chuyên gia Giáo dục</i></figcaption></figure>
+          <figure class="advisor"><span class="avatar">VH</span><figcaption><b>ThS. Vũ Hà</b><i>Cố vấn Tài chính</i></figcaption></figure>
+          <figure class="advisor"><span class="avatar">ĐM</span><figcaption><b>Bà Đỗ Mai</b><i>Điều phối Khu vực phía Bắc</i></figcaption></figure>
+          <figure class="advisor"><span class="avatar">BN</span><figcaption><b>Ông Bùi Nam</b><i>Cố vấn Truyền thông</i></figcaption></figure>
+          <figure class="advisor"><span class="avatar">ĐQ</span><figcaption><b>TS. Đặng Quân</b><i>Chuyên gia Đánh giá</i></figcaption></figure>
+          <figure class="advisor"><span class="avatar">LS</span><figcaption><b>ThS. Lý Sơn</b><i>Cố vấn Sản phẩm</i></figcaption></figure>
+        </div>
+        <div class="carousel-nav" id="advisorsNav" hidden>
+          <button type="button" class="cbtn" data-adv="prev" aria-label="Nhóm trước"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+          <div class="dots" id="advisorsDots"></div>
+          <button type="button" class="cbtn" data-adv="next" aria-label="Nhóm sau"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg></button>
+        </div>
+        <p class="center muted xs mt-sm">Danh sách minh họa — cập nhật ảnh &amp; thông tin cố vấn thật khi sẵn sàng.</p>
+      </div>
+    </div>
+
+    <!-- 3. Dải logo trường -->
+    <div class="reveal mt-xl">
+      <div class="marquee-box">
+        <h3 class="h-sm center">School Enterprise Challenge tự hào đồng hành cùng</h3>
+        <div class="marquee">
+          <div class="marquee-track">
+            <div class="logo-card"><span class="logo-mark">ND</span><span class="logo-name">Trường THPT Nguyễn Du</span></div>
+            <div class="logo-card"><span class="logo-mark">LQ</span><span class="logo-name">Trường THCS Lê Quý Đôn</span></div>
+            <div class="logo-card"><span class="logo-mark">SV</span><span class="logo-name">Trường Quốc tế Sao Việt</span></div>
+            <div class="logo-card"><span class="logo-mark">TĐ</span><span class="logo-name">Trường THPT Trần Đại Nghĩa</span></div>
+            <div class="logo-card"><span class="logo-mark">KĐ</span><span class="logo-name">Trường Tiểu học Kim Đồng</span></div>
+            <div class="logo-card"><span class="logo-mark">CV</span><span class="logo-name">Trường THPT Chu Văn An</span></div>
+            <div class="logo-card"><span class="logo-mark">BM</span><span class="logo-name">Trường Song ngữ Ban Mai</span></div>
+            <div class="logo-card"><span class="logo-mark">NT</span><span class="logo-name">Trường THCS Nguyễn Trãi</span></div>
+            <div class="logo-card" aria-hidden="true"><span class="logo-mark">ND</span><span class="logo-name">Trường THPT Nguyễn Du</span></div>
+            <div class="logo-card" aria-hidden="true"><span class="logo-mark">LQ</span><span class="logo-name">Trường THCS Lê Quý Đôn</span></div>
+            <div class="logo-card" aria-hidden="true"><span class="logo-mark">SV</span><span class="logo-name">Trường Quốc tế Sao Việt</span></div>
+            <div class="logo-card" aria-hidden="true"><span class="logo-mark">TĐ</span><span class="logo-name">Trường THPT Trần Đại Nghĩa</span></div>
+            <div class="logo-card" aria-hidden="true"><span class="logo-mark">KĐ</span><span class="logo-name">Trường Tiểu học Kim Đồng</span></div>
+            <div class="logo-card" aria-hidden="true"><span class="logo-mark">CV</span><span class="logo-name">Trường THPT Chu Văn An</span></div>
+            <div class="logo-card" aria-hidden="true"><span class="logo-mark">BM</span><span class="logo-name">Trường Song ngữ Ban Mai</span></div>
+            <div class="logo-card" aria-hidden="true"><span class="logo-mark">NT</span><span class="logo-name">Trường THCS Nguyễn Trãi</span></div>
+          </div>
+          <span class="marquee-fade left"></span>
+          <span class="marquee-fade right"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HÀNH TRÌNH ============ -->
+<section id="hanh-trinh" class="section sec-white">
+  <div class="container">
+    <div class="center reveal">
+      <span class="eyebrow">Hành trình 7 cột mốc</span>
+      <h2 class="section-title">Trọn vẹn một vòng đời khởi nghiệp</h2>
+      <p class="section-sub center-block">School Enterprise Challenge dẫn dắt học sinh đi qua bảy cột mốc — từ lập đội đến tôn vinh nỗ lực.</p>
+    </div>
+
+    <ol class="timeline">
+      <span class="timeline-line" aria-hidden="true"></span>
+
+      <li class="tl-item tl-left">
+        <span class="tl-node">1</span>
+        <div class="tl-card reveal">
+          <div class="tl-head"><h3>Giới thiệu Đội ngũ</h3><span class="badge-muted">Không tính điểm</span></div>
+          <p>Làm quen, phân vai và cùng đặt mục tiêu chung cho cả đội.</p>
+        </div>
+      </li>
+      <li class="tl-item tl-right">
+        <span class="tl-node">2</span>
+        <div class="tl-card reveal">
+          <div class="tl-head"><h3>Khám phá Mơ ước</h3><span class="badge-muted">Không tính điểm</span></div>
+          <p>Suy ngẫm về ước mơ, giá trị và tương lai các em muốn tạo ra.</p>
+        </div>
+      </li>
+      <li class="tl-item tl-left">
+        <span class="tl-node tl-node-gold">3</span>
+        <div class="tl-card tl-card-gold reveal">
+          <div class="tl-head"><h3>Xây dựng Ý tưởng</h3><span class="badge-gold">20% điểm</span></div>
+          <p>Chọn một ý tưởng kinh doanh thực tế, giải quyết nhu cầu có thật.</p>
+        </div>
+      </li>
+      <li class="tl-item tl-right">
+        <span class="tl-node tl-node-gold">4</span>
+        <div class="tl-card tl-card-gold reveal">
+          <div class="tl-head"><h3>Phát triển Kế hoạch</h3><span class="badge-gold">20% điểm</span></div>
+          <p>Nghiên cứu thị trường, lập kế hoạch vận hành, tài chính và rủi ro.</p>
+        </div>
+      </li>
+      <li class="tl-item tl-left">
+        <span class="tl-node">5</span>
+        <div class="tl-card reveal">
+          <div class="tl-head"><h3>Ra mắt Doanh nghiệp</h3><span class="badge-muted">Không tính điểm</span></div>
+          <p>Chính thức khai trương và đón những khách hàng đầu tiên.</p>
+        </div>
+      </li>
+      <li class="tl-item tl-right">
+        <span class="tl-node tl-node-gold">6</span>
+        <div class="tl-card tl-card-gold reveal">
+          <div class="tl-head"><h3>Chia sẻ Thành công</h3><span class="badge-gold">60% điểm</span></div>
+          <p>Vận hành thật (tối thiểu 3 tháng) rồi viết Báo cáo Thường niên.</p>
+        </div>
+      </li>
+      <li class="tl-item tl-left">
+        <span class="tl-node">7</span>
+        <div class="tl-card reveal">
+          <div class="tl-head"><h3>Tôn vinh Nỗ lực</h3><span class="badge-muted">Không tính điểm</span></div>
+          <p>Nhìn lại chặng đường và ăn mừng những gì đã đạt được.</p>
+        </div>
+      </li>
+      <li class="tl-end"><span class="tl-node tl-node-flag"><svg class="ic ic-md" viewBox="0 0 24 24"><use href="#i-flag"/></svg></span></li>
+    </ol>
+
+    <div class="note note-brand reveal">
+      <svg class="ic c-gold" viewBox="0 0 24 24"><use href="#i-lightbulb"/></svg>
+      <p>Bốn cột mốc số 1, 2, 5 và 7 không tính điểm nhưng cần hoàn tất — chúng giúp gắn kết đội
+      và tạo động lực. Điểm xếp hạng đến từ ba bài nộp chính ở các cột mốc 3, 4 và 6.</p>
+    </div>
+
+    <div class="reveal mt-xl">
+      <h3 class="h-md">Lịch tham gia trong năm</h3>
+      <p class="p-soft sm">School Enterprise Challenge có hai đợt trong năm với giải thưởng hoàn toàn
+        giống nhau — nhà trường chọn thời điểm phù hợp nhất với lịch của mình.
+        (Đây là lịch mẫu, mỗi năm có thể có điều chỉnh cho phù hợp.)</p>
+
+      <div class="table-wrap">
+        <table class="schedule">
+          <thead>
+            <tr>
+              <th>Mốc</th>
+              <th><span class="dot dot-brand"></span> Đợt 1</th>
+              <th><span class="dot dot-gold"></span> Đợt 2</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><svg class="ic c-teal" viewBox="0 0 24 24"><use href="#i-check-circle"/></svg> Thời gian đăng ký</td><td>Tháng 4–5</td><td>Tháng 8–9</td></tr>
+            <tr><td><svg class="ic c-teal" viewBox="0 0 24 24"><use href="#i-check-circle"/></svg> Nộp Ý tưởng Kinh doanh</td><td>Cuối tháng 6</td><td>Đầu tháng 10</td></tr>
+            <tr><td><svg class="ic c-teal" viewBox="0 0 24 24"><use href="#i-check-circle"/></svg> Nộp Kế hoạch Kinh doanh</td><td>Giữa tháng 8</td><td>Giữa tháng 11</td></tr>
+            <tr><td><svg class="ic c-teal" viewBox="0 0 24 24"><use href="#i-check-circle"/></svg> Nộp Báo cáo Thường niên</td><td>Giữa tháng 11</td><td>Giữa tháng 2 năm sau</td></tr>
+            <tr><td><svg class="ic c-teal" viewBox="0 0 24 24"><use href="#i-check-circle"/></svg> Nhận chứng nhận</td><td>Tháng 3 năm sau</td><td>Tháng 3 năm sau</td></tr>
+            <tr><td><svg class="ic c-teal" viewBox="0 0 24 24"><use href="#i-check-circle"/></svg> Trao giải thưởng</td><td>Tháng 4 năm sau</td><td>Tháng 4 năm sau</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CÁCH THAM GIA ============ -->
+<section id="tham-gia" class="section sec-gold">
+  <div class="container">
+    <div class="center reveal">
+      <span class="eyebrow eyebrow-gold">Làm sao để tham gia?</span>
+      <h2 class="section-title">Lựa chọn đồng hành cùng bạn</h2>
+      <p class="section-sub center-block">Chọn con đường tham gia School Enterprise Challenge phù hợp với bạn.</p>
+    </div>
+
+    <div class="paths">
+      <div class="path path-brand reveal">
+        <span class="path-tag tag-brand">Dành cho Nhà trường / Giáo viên</span>
+        <div class="path-head">
+          <span class="path-icon i-brand"><svg class="ic ic-md" viewBox="0 0 24 24"><use href="#i-graduation-cap"/></svg></span>
+          <h3>Nếu bạn là nhà trường / giáo viên</h3>
+        </div>
+        <p>Hiệu trưởng hoặc giáo viên đăng ký cho trường, lập một hoặc nhiều đội học sinh, rồi sử dụng
+          bộ tài nguyên của chương trình để hướng dẫn các em đi qua từng cột mốc. Chương trình có thể
+          lồng ghép vào giờ học, câu lạc bộ hoặc hoạt động ngoại khóa, linh hoạt theo lịch của trường.</p>
+        <a href="#dang-ky" class="btn btn-primary">Đăng ký / Nhận tư vấn <svg class="ic" viewBox="0 0 24 24"><use href="#i-arrow-right"/></svg></a>
+      </div>
+
+      <div class="path path-teal reveal" data-delay="100">
+        <span class="path-tag tag-teal">Dành cho Phụ huynh</span>
+        <div class="path-head">
+          <span class="path-icon i-teal"><svg class="ic ic-md" viewBox="0 0 24 24"><use href="#i-heart-handshake"/></svg></span>
+          <h3>Nếu bạn là phụ huynh</h3>
+        </div>
+        <p>Bạn có thể vận động nhà trường của con đăng ký tham gia, hoặc đồng hành cùng con trong vai trò
+          người cố vấn — khích lệ, đặt câu hỏi và hỗ trợ đội của con qua các cột mốc. Việc đăng ký chính thức
+          thường thực hiện qua nhà trường; School Enterprise Challenge Vietnam có thể tư vấn cụ thể cách
+          bắt đầu phù hợp với trường hợp của gia đình bạn.</p>
+        <a href="#dang-ky" class="btn btn-teal">Nhận tư vấn cho gia đình <svg class="ic" viewBox="0 0 24 24"><use href="#i-arrow-right"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Form tư vấn -->
+    <div id="dang-ky" class="lead-box reveal">
+      <div>
+        <span class="eyebrow eyebrow-gold">Đăng ký nhận tư vấn</span>
+        <h3 class="h-lg">Để lại thông tin — School Enterprise Challenge Vietnam sẽ đồng hành cùng bạn</h3>
+        <p class="p-soft">Dù bạn là nhà trường, giáo viên hay phụ huynh, hãy để lại thông tin để nhận tư vấn
+          cụ thể về cách bắt đầu với School Enterprise Challenge phù hợp nhất với trường hợp của bạn.</p>
+      </div>
+
+      <form class="lead-form" id="leadForm" novalidate>
+        <div class="row">
+          <div class="field">
+            <label class="label" for="name">Họ và tên <span class="req">*</span></label>
+            <input id="name" name="name" required class="input" placeholder="Nguyễn Văn A">
+          </div>
+          <div class="field">
+            <label class="label" for="phone">Điện thoại / Zalo <span class="req">*</span></label>
+            <input id="phone" name="phone" required class="input" placeholder="09xx xxx xxx">
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label class="label" for="email">Email</label>
+            <input id="email" name="email" type="email" class="input" placeholder="email@truong.edu.vn">
+          </div>
+          <div class="field">
+            <label class="label" for="audience">Bạn là</label>
+            <select id="audience" name="audience" class="input">
+              <option value="school">Nhà trường / Giáo viên</option>
+              <option value="parent">Phụ huynh / Học sinh</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label class="label" for="org">Trường / Tổ chức</label>
+            <input id="org" name="org" class="input" placeholder="Tên trường của bạn">
+          </div>
+          <div class="field">
+            <label class="label" for="role">Vai trò</label>
+            <input id="role" name="role" class="input" placeholder="Hiệu trưởng, giáo viên, phụ huynh...">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="message">Nội dung cần tư vấn</label>
+          <textarea id="message" name="message" rows="3" class="input" placeholder="Chia sẻ mong muốn của bạn về việc tham gia School Enterprise Challenge..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">
+          <svg class="ic" viewBox="0 0 24 24"><use href="#i-send"/></svg> Gửi thông tin tư vấn
+        </button>
+        <p class="center muted xs">Thông tin của bạn được bảo mật và chỉ dùng để tư vấn chương trình School Enterprise Challenge.</p>
+      </form>
+
+      <div class="lead-done" id="leadDone" hidden>
+        <svg class="ic ic-xl c-teal" viewBox="0 0 24 24"><use href="#i-check-circle"/></svg>
+        <h3>Đã nhận thông tin của bạn!</h3>
+        <p>School Enterprise Challenge Vietnam sẽ liên hệ tư vấn trong thời gian sớm nhất. Cảm ơn bạn.</p>
+        <button type="button" class="btn btn-ghost" id="leadReset">Gửi thông tin khác</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DỰ ÁN ============ -->
+<section id="du-an" class="section sec-brand-soft">
+  <div class="container">
+    <div class="center reveal">
+      <span class="eyebrow eyebrow-gold">Dự án truyền cảm hứng</span>
+      <h2 class="section-title">Những doanh nghiệp học đường tiêu biểu</h2>
+      <p class="section-sub center-block">Câu chuyện thật của các đội học sinh.</p>
+    </div>
+
+    <div class="projects">
+      <article class="project reveal">
+        <div class="project-photo"><img src="img/students-market.webp" alt="GreenPack – Bao bì sinh học từ bã mía" width="1000" height="666" loading="lazy" decoding="async"></div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-n">01</span>
+            <span class="tag-gold"><svg class="ic" viewBox="0 0 24 24"><use href="#i-medal"/></svg> Ý tưởng Kinh doanh Xuất sắc</span>
+          </div>
+          <h3>GreenPack – Bao bì sinh học từ bã mía</h3>
+          <p class="project-school"><svg class="ic" viewBox="0 0 24 24"><use href="#i-school"/></svg> Trường THPT Nguyễn Du</p>
+          <p class="p-soft">Đội học sinh lớp 11 biến bã mía thải thành hộp đựng thực phẩm phân huỷ sinh học,
+            bán cho các quán ăn trong khu vực và tái đầu tư lợi nhuận vào quỹ lớp.</p>
+        </div>
+      </article>
+
+      <article class="project project-flip reveal">
+        <div class="project-photo"><img src="img/students-dreams.webp" alt="Story Kits – Bộ kể chuyện song ngữ cho em nhỏ" width="1000" height="619" loading="lazy" decoding="async"></div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-n">02</span>
+            <span class="tag-gold"><svg class="ic" viewBox="0 0 24 24"><use href="#i-medal"/></svg> Nhà vô địch Mục tiêu Phát triển Bền vững (SDG)</span>
+          </div>
+          <h3>Story Kits – Bộ kể chuyện song ngữ cho em nhỏ</h3>
+          <p class="project-school"><svg class="ic" viewBox="0 0 24 24"><use href="#i-school"/></svg> Trường Song ngữ Ban Mai</p>
+          <p class="p-soft">Sản phẩm thẻ kể chuyện song ngữ do học sinh thiết kế và in ấn, giúp trẻ mầm non
+            làm quen tiếng Anh. Doanh thu trích một phần tặng thư viện vùng cao.</p>
+        </div>
+      </article>
+
+      <article class="project reveal">
+        <div class="project-photo"><img src="img/students-products.webp" alt="ReBook – Chợ sách cũ trong trường" width="730" height="487" loading="lazy" decoding="async"></div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-n">03</span>
+            <span class="tag-gold"><svg class="ic" viewBox="0 0 24 24"><use href="#i-medal"/></svg> Doanh nghiệp Xuất sắc (Trung học)</span>
+          </div>
+          <h3>ReBook – Chợ sách cũ trong trường</h3>
+          <p class="project-school"><svg class="ic" viewBox="0 0 24 24"><use href="#i-school"/></svg> Trường THCS Lê Quý Đôn</p>
+          <p class="p-soft">Nền tảng trao đổi và bán sách cũ giữa các khối lớp, giảm lãng phí và giúp học sinh
+            khó khăn tiếp cận sách giá rẻ.</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- Giải thưởng -->
+    <div class="prizes reveal">
+      <div class="center">
+        <span class="tag-solid-gold">Hệ thống Giải thưởng Toàn cầu</span>
+        <h3 class="prizes-title">Hệ thống Giải thưởng Toàn cầu</h3>
+        <p class="prizes-sub">Bên cạnh huy hiệu và chứng nhận hoàn thành, School Enterprise Challenge vinh danh
+          các đội ngũ, học sinh, giáo viên và nhà trường xuất sắc trên toàn cầu.</p>
+      </div>
+
+      <div class="ranks">
+        <span class="rank"><i style="background:#cd7f32"></i> Hạng Đồng</span>
+        <span class="rank"><i style="background:#9ca3af"></i> Hạng Bạc</span>
+        <span class="rank"><i style="background:#e9a825"></i> Hạng Vàng</span>
+      </div>
+
+      <div class="prize-grid">
+        <div class="prize">
+          <span class="prize-icon"><svg class="ic ic-md" viewBox="0 0 24 24"><use href="#i-trophy"/></svg></span>
+          <h4>Giải thưởng Toàn cầu</h4>
+          <ul>
+            <li>Ý tưởng Kinh doanh Xuất sắc nhất (Cột mốc 3)</li>
+            <li>Kế hoạch Kinh doanh Xuất sắc nhất (Tiểu học &amp; Trung học)</li>
+            <li>Doanh nghiệp Xuất sắc nhất (Tiểu học &amp; Trung học)</li>
+          </ul>
+        </div>
+        <div class="prize">
+          <span class="prize-icon"><svg class="ic ic-md" viewBox="0 0 24 24"><use href="#i-star"/></svg></span>
+          <h4>Hạng mục Đặc biệt</h4>
+          <ul>
+            <li>Nhà vô địch Mục tiêu Phát triển Bền vững (SDG)</li>
+            <li>Hiệu trưởng của Năm</li>
+            <li>Giáo viên Truyền cảm hứng của Năm</li>
+            <li>Học sinh Khởi nghiệp Xuất sắc</li>
+            <li>Nhà vô địch Khởi nghiệp (Enterprise Champion)</li>
+          </ul>
+        </div>
+        <div class="prize">
+          <span class="prize-icon"><svg class="ic ic-md" viewBox="0 0 24 24"><use href="#i-award"/></svg></span>
+          <h4>Giải thưởng Số &amp; Danh hiệu cao quý</h4>
+          <ul>
+            <li>Ý tưởng / Kế hoạch / Doanh nghiệp Hàng đầu (app Elevated)</li>
+            <li>Quán quân Quốc gia (Country Winners)</li>
+            <li>School Enterprise Challenge Legend Award — giải danh giá nhất toàn cầu</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SỰ KIỆN ============ -->
+<section id="su-kien" class="section sec-white">
+  <div class="container">
+    <div class="reveal narrow">
+      <span class="eyebrow">Sự kiện sắp diễn ra</span>
+      <h2 class="section-title">Hội thảo, tập huấn &amp; ngày hội</h2>
+      <p class="section-sub">Các buổi giới thiệu, tập huấn giáo viên và sự kiện chung kết sắp tới
+        — tự động chuyển qua từng sự kiện.</p>
+    </div>
+
+    <div class="events reveal" id="events">
+      <div class="event-stage">
+        <article class="event is-active">
+          <div class="event-photo">
+            <img src="img/students-dreams.webp" alt="Hội thảo giới thiệu School Enterprise Challenge cho Nhà trường" width="1000" height="619" loading="lazy" decoding="async">
+            <span class="event-shade"></span>
+            <div class="event-badges">
+              <span class="badge-white"><svg class="ic" viewBox="0 0 24 24"><use href="#i-wifi"/></svg> Online</span>
+              <span class="badge-solid-gold">Sắp diễn ra</span>
+            </div>
+          </div>
+          <div class="event-body">
+            <p class="event-date"><svg class="ic" viewBox="0 0 24 24"><use href="#i-calendar"/></svg> 09:00 Thứ Bảy, 12/09/2026</p>
+            <h3>Hội thảo giới thiệu School Enterprise Challenge cho Nhà trường</h3>
+            <p class="event-loc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-map-pin"/></svg> Trực tuyến qua Zoom</p>
+            <p class="p-soft">Buổi giới thiệu tổng quan chương trình School Enterprise Challenge và lộ trình
+              7 cột mốc dành cho ban giám hiệu và giáo viên.</p>
+            <a href="#dang-ky" class="btn btn-primary">Đăng ký tham dự <svg class="ic" viewBox="0 0 24 24"><use href="#i-arrow-up-right"/></svg></a>
+          </div>
+        </article>
+
+        <article class="event">
+          <div class="event-photo">
+            <img src="img/students-market.webp" alt="Tập huấn Giáo viên hướng dẫn (Cột mốc 1-4)" width="1000" height="666" loading="lazy" decoding="async">
+            <span class="event-shade"></span>
+            <div class="event-badges">
+              <span class="badge-white"><svg class="ic" viewBox="0 0 24 24"><use href="#i-map-pin"/></svg> Offline</span>
+              <span class="badge-solid-gold">Sắp diễn ra</span>
+            </div>
+          </div>
+          <div class="event-body">
+            <p class="event-date"><svg class="ic" viewBox="0 0 24 24"><use href="#i-calendar"/></svg> 08:30 Chủ Nhật, 27/09/2026</p>
+            <h3>Tập huấn Giáo viên hướng dẫn (Cột mốc 1-4)</h3>
+            <p class="event-loc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-map-pin"/></svg> TP. Hồ Chí Minh (offline) &amp; livestream</p>
+            <p class="p-soft">Khoá tập huấn giúp giáo viên tự tin dẫn dắt học sinh qua 4 cột mốc đầu:
+              xây dựng đội, khám phá ước mơ, hình thành ý tưởng và lập kế hoạch kinh doanh.</p>
+            <a href="#dang-ky" class="btn btn-primary">Đăng ký tham dự <svg class="ic" viewBox="0 0 24 24"><use href="#i-arrow-up-right"/></svg></a>
+          </div>
+        </article>
+
+        <article class="event">
+          <div class="event-photo">
+            <img src="img/students-products.webp" alt="Ngày hội Khởi nghiệp Học đường – Demo Day" width="730" height="487" loading="lazy" decoding="async">
+            <span class="event-shade"></span>
+            <div class="event-badges">
+              <span class="badge-white"><svg class="ic" viewBox="0 0 24 24"><use href="#i-map-pin"/></svg> Offline</span>
+              <span class="badge-solid-gold">Sắp diễn ra</span>
+            </div>
+          </div>
+          <div class="event-body">
+            <p class="event-date"><svg class="ic" viewBox="0 0 24 24"><use href="#i-calendar"/></svg> 08:00 Chủ Nhật, 15/11/2026</p>
+            <h3>Ngày hội Khởi nghiệp Học đường – Demo Day</h3>
+            <p class="event-loc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-map-pin"/></svg> Hà Nội</p>
+            <p class="p-soft">Các đội học sinh ra mắt doanh nghiệp và gọi vốn thử trước hội đồng cố vấn.
+              Cơ hội để nhà trường và phụ huynh chứng kiến tinh thần dám nghĩ, dám làm.</p>
+            <a href="#dang-ky" class="btn btn-primary">Đăng ký tham dự <svg class="ic" viewBox="0 0 24 24"><use href="#i-arrow-up-right"/></svg></a>
+          </div>
+        </article>
+
+        <button type="button" class="event-arrow left" data-ev="prev" aria-label="Sự kiện trước"><svg class="ic ic-md" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+        <button type="button" class="event-arrow right" data-ev="next" aria-label="Sự kiện sau"><svg class="ic ic-md" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg></button>
+      </div>
+
+      <div class="carousel-nav">
+        <button type="button" class="cbtn only-mobile" data-ev="prev" aria-label="Trước"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+        <div class="dots" id="eventsDots"></div>
+        <button type="button" class="cbtn only-mobile" data-ev="next" aria-label="Sau"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="cta-band">
+      <h3>Hãy để học sinh của bạn trải nghiệm việc dám nghĩ, dám làm.</h3>
+      <p>Liên hệ School Enterprise Challenge Vietnam để được tư vấn tham gia chương trình.</p>
+      <div class="cta-band-btns">
+        <a href="#dang-ky" class="btn btn-white">Nhận tư vấn cho Trường học</a>
+        <a href="#tham-gia" class="btn btn-outline">Tìm hiểu cách tham gia</a>
+      </div>
+    </div>
+
+    <div class="foot-grid">
+      <div>
+        <span class="foot-logo"><img src="img/logo-sec.webp" alt="School Enterprise Challenge" width="400" height="158" loading="lazy" decoding="async"></span>
+        <p class="foot-about">School Enterprise Challenge tại Việt Nam được điều hành bởi TOMATO Education
+          — Đại diện chính thức tại Việt Nam. Chương trình toàn cầu do tổ chức phi lợi nhuận
+          Teach A Man To Fish tổ chức.</p>
+      </div>
+
+      <div>
+        <h4>Liên hệ</h4>
+        <ul class="foot-contact">
+          <li><svg class="ic" viewBox="0 0 24 24"><use href="#i-phone"/></svg> [Số điện thoại / Zalo]</li>
+          <li><svg class="ic" viewBox="0 0 24 24"><use href="#i-mail"/></svg> info@tomato.edu.vn</li>
+          <li><svg class="ic" viewBox="0 0 24 24"><use href="#i-globe"/></svg> [website / fanpage]</li>
+          <li><svg class="ic" viewBox="0 0 24 24"><use href="#i-map-pin"/></svg> Việt Nam</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Đối tác đồng hành</h4>
+        <div class="foot-partners">
+          <div class="foot-partner"><span class="logo-mark sm">TE</span><span>TOMATO Education</span></div>
+          <div class="foot-partner"><span class="logo-mark sm">YE</span><span>Youth Empowerment School</span></div>
+          <div class="foot-partner"><span class="logo-mark sm">DF</span><span>Design for Change Vietnam</span></div>
+          <div class="foot-partner"><span class="logo-mark sm">TA</span><span>Teach A Man To Fish</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <span>© <span id="year">2026</span> TOMATO Education. School Enterprise Challenge Việt Nam.</span>
+      <div class="foot-links">
+        <a href="#">Điều khoản</a>
+        <a href="#">Bảo mật</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
