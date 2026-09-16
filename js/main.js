@@ -7,6 +7,16 @@
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* ---------- CẤU HÌNH FORM → GOOGLE SHEET ----------
+     SCRIPT_URL: URL Web App của Apps Script (xem apps-script.gs), dạng
+                 https://script.google.com/macros/s/AKfycb.../exec
+     TOKEN:      phải TRÙNG với TOKEN trong apps-script.gs.
+     Để SCRIPT_URL = "" thì form chạy chế độ demo (chỉ hiện "đã nhận", không gửi đi đâu). */
+  var FORM_CONFIG = {
+    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwF6YYKXes1a2o883TL1pcqMaoizYnwFOoveuW6_2fJIV0Zxc-XC7q_61Ky2U2yfRSTAw/exec",
+    TOKEN: "token123@x3312ccwdze"
+  };
+
   /* ---------- 1. Header đổi nền khi cuộn ---------- */
   (function header() {
     var el = document.getElementById("siteHeader");
@@ -185,6 +195,42 @@
 
     layout();
     restart();
+
+    /* Hộp tiểu sử: bấm vào thẻ hoặc nút "Xem tiểu sử" */
+    var dlg = document.getElementById("advisorDialog");
+    var data = window.SEC_ADVISORS || [];
+    if (dlg && typeof dlg.showModal === "function" && data.length) {
+      var dImg = document.getElementById("advDlgImg");
+      var dName = document.getElementById("advDlgName");
+      var dTitle = document.getElementById("advDlgTitle");
+      var dBio = document.getElementById("advDlgBio");
+
+      function openAdvisor(i) {
+        var a = data[i];
+        if (!a) return;
+        dImg.src = a.img; dImg.alt = a.name;
+        dName.textContent = a.name;
+        dTitle.innerHTML = a.title;
+        dBio.innerHTML = "";
+        a.bio.forEach(function (line) {
+          var li = document.createElement("li");
+          li.innerHTML = line;
+          dBio.appendChild(li);
+        });
+        paused = true; restart();
+        dlg.showModal();
+      }
+
+      track.addEventListener("click", function (e) {
+        var card = e.target.closest("[data-advisor]");
+        if (!card) return;
+        openAdvisor(parseInt(card.dataset.advisor, 10));
+      });
+      dlg.addEventListener("click", function (e) {
+        if (e.target === dlg || e.target.closest("[data-adv-close]")) dlg.close();
+      });
+      dlg.addEventListener("close", function () { paused = false; restart(); });
+    }
   })();
 
   /* ---------- 5. Sự kiện: băng chuyền ---------- */
@@ -271,9 +317,57 @@
         return;
       }
 
-      // Bản tĩnh không có server — chỉ hiển thị trạng thái đã gửi.
-      form.hidden = true;
-      done.hidden = false;
+      // Chưa cấu hình SCRIPT_URL → chế độ demo, chỉ hiển thị đã nhận.
+      if (!FORM_CONFIG.SCRIPT_URL) {
+        form.hidden = true;
+        done.hidden = false;
+        return;
+      }
+
+      var btn = form.querySelector('button[type="submit"]');
+      var btnHtml = btn.innerHTML;
+      btn.disabled = true;
+      btn.textContent = "Đang gửi...";
+
+      var payload = {
+        token: FORM_CONFIG.TOKEN,
+        name: form.elements.name.value.trim(),
+        phone: form.elements.phone.value.trim(),
+        email: form.elements.email.value.trim(),
+        audience: form.elements.audience.value,
+        org: form.elements.org.value.trim(),
+        role: form.elements.role.value.trim(),
+        message: form.elements.message.value.trim(),
+        website: form.elements.website ? form.elements.website.value : "", // honeypot
+        page: location.href,
+        ua: navigator.userAgent
+      };
+
+      // Không set Content-Type JSON: để mặc định text/plain thì Apps Script không dính CORS preflight.
+      fetch(FORM_CONFIG.SCRIPT_URL, { method: "POST", body: JSON.stringify(payload) })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (data && data.result === "ok") {
+            form.hidden = true;
+            done.hidden = false;
+          } else {
+            showError((data && data.message) || "Gửi không thành công, vui lòng thử lại.");
+          }
+        })
+        .catch(function () {
+          showError("Không kết nối được máy chủ. Vui lòng thử lại hoặc gọi hotline 0906 616 212.");
+        })
+        .then(function () {
+          btn.disabled = false;
+          btn.innerHTML = btnHtml;
+        });
+
+      function showError(msg) {
+        var p = document.createElement("p");
+        p.className = "form-error";
+        p.textContent = msg;
+        form.insertBefore(p, form.lastElementChild.previousElementSibling);
+      }
     });
 
     if (reset) {
