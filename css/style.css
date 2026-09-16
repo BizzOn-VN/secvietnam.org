@@ -775,3 +775,18 @@ textarea.input { resize:none; }
 .legal-dialog-body h1 { font-size:1.125rem; }
 .legal-dialog-foot { padding:.875rem 1.5rem; border-top:1px solid var(--line); background:var(--cream);
                      display:flex; justify-content:flex-end; }
+
+/* ---------- Màn "Đang gửi" (#leadSending) — 16/09/2026 ---------- */
+.tmt-modal-sending { max-width:440px; padding:40px 34px 32px; cursor:wait; }
+.tmt-modal-sending .tmt-modal-title { color:var(--brand-600); font-size:24px; }
+.tmt-modal-sending .tmt-modal-text { margin-bottom:12px; }
+.sending-warn { margin:0; padding:12px 14px; border-radius:12px; background:#fff7e6; border:1px solid #ffd58a; color:#8a5a00; font-size:14px; line-height:1.55; }
+.sending-warn strong { color:#c44900; }
+.sending-spinner { width:72px; height:72px; margin:0 auto 18px; position:relative; }
+.sending-spinner span {
+  position:absolute; inset:0; border-radius:50%;
+  border:6px solid var(--brand-100); border-top-color:var(--brand-500);
+  animation:sendingSpin .9s linear infinite;
+}
+@keyframes sendingSpin { to { transform:rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .sending-spinner span { animation-duration:2.4s; } }

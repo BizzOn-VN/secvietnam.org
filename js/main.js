@@ -443,6 +443,7 @@
       var btnHtml = btn.innerHTML;
       btn.disabled = true;
       btn.textContent = "Đang gửi...";
+      sendingStart();
 
       var payload = {
         token: FORM_CONFIG.TOKEN,
@@ -468,10 +469,37 @@
           showFormError("Không kết nối được máy chủ. Vui lòng thử lại hoặc gọi hotline 0906 616 212.");
         })
         .then(function () {
+          sendingStop();
           btn.disabled = false;
           btn.innerHTML = btnHtml;
         });
     });
+
+    /* Màn "Đang gửi": Apps Script trả lời chậm (2–5 giây), nếu chỉ đổi chữ trên nút thì phụ huynh
+       hay tưởng treo rồi reload / rời trang → lead rớt. Phủ overlay toàn màn hình + chặn beforeunload
+       trong lúc chờ. Tối thiểu hiện 600ms để không nháy khi mạng nhanh. */
+    var sending = document.getElementById("leadSending");
+    var sendingSince = 0;
+    function warnUnload(e) { e.preventDefault(); e.returnValue = ""; return ""; }
+    function sendingStart() {
+      sendingSince = Date.now();
+      window.addEventListener("beforeunload", warnUnload);
+      if (!sending) return;
+      sending.classList.remove("tmt-dong");
+      sending.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+    function sendingStop() {
+      window.removeEventListener("beforeunload", warnUnload);
+      if (!sending) return;
+      var wait = Math.max(0, 600 - (Date.now() - sendingSince));
+      setTimeout(function () {
+        sending.classList.add("tmt-dong");
+        sending.setAttribute("aria-hidden", "true");
+        // Popup thành công (nếu có) đang mở thì giữ khoá cuộn, không thì trả lại
+        if (!modal || modal.classList.contains("tmt-dong")) document.body.style.overflow = "";
+      }, wait);
+    }
 
     /* Popup thành công: đóng bằng X / nút Đóng / bấm nền / Esc */
     var modal = document.getElementById("leadModal");
