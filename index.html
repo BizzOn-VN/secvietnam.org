@@ -6,10 +6,23 @@
 <title>School Enterprise Challenge Việt Nam — Khởi nghiệp Học đường</title>
 <meta name="description" content="Chương trình Giáo dục Khởi nghiệp Toàn cầu dành cho học sinh, do học sinh làm chủ và được ghi nhận quốc tế. Đại diện chính thức tại Việt Nam: TOMATO Education.">
 <meta name="keywords" content="School Enterprise Challenge, School Enterprise Challenge Vietnam, khởi nghiệp học đường, TOMATO Education, Teach A Man To Fish, Young Founders Lab">
-<meta property="og:title" content="School Enterprise Challenge Việt Nam">
-<meta property="og:description" content="Để học sinh dám nghĩ, dám làm bằng một doanh nghiệp của chính mình.">
+<link rel="canonical" href="https://secvietnam.org/">
+<meta property="og:site_name" content="School Enterprise Challenge Việt Nam">
+<meta property="og:title" content="School Enterprise Challenge | Chương trình Giáo dục Khởi nghiệp Toàn cầu">
+<meta property="og:description" content="School Enterprise Challenge là một chương trình giáo dục khởi nghiệp toàn cầu, được tổ chức bởi tổ chức phi lợi nhuận Teach A Man To Fish. Từ khi ra đời năm 2011, chương trình đã đồng hành cùng hàng trăm nghìn học sinh ở rất nhiều quốc gia.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://secvietnam.org/">
 <meta property="og:locale" content="vi_VN">
+<meta property="og:image" content="https://secvietnam.org/img/og-image.png">
+<meta property="og:image:secure_url" content="https://secvietnam.org/img/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="School Enterprise Challenge — Chương trình Giáo dục Khởi nghiệp Toàn cầu">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="School Enterprise Challenge | Chương trình Giáo dục Khởi nghiệp Toàn cầu">
+<meta name="twitter:description" content="School Enterprise Challenge là một chương trình giáo dục khởi nghiệp toàn cầu, được tổ chức bởi tổ chức phi lợi nhuận Teach A Man To Fish. Từ khi ra đời năm 2011, chương trình đã đồng hành cùng hàng trăm nghìn học sinh ở rất nhiều quốc gia.">
+<meta name="twitter:image" content="https://secvietnam.org/img/og-image.png">
 <link rel="icon" href="img/logo-sec.webp" type="image/webp">
 <link rel="preload" as="image" href="img/students-stall.webp" fetchpriority="high">
 <link rel="stylesheet" href="css/style.css">
@@ -474,8 +487,8 @@
           <label class="consent-label">
             <input type="checkbox" id="consent" name="consent" required>
             <span>Bằng việc nhấn nút “Đăng ký tư vấn”, bạn đồng ý cho phép TOMATO Children’s Home sử dụng thông tin trên
-              để liên hệ hỗ trợ và xác nhận tham dự theo <a href="#" target="_blank" rel="noopener">Điều khoản sử dụng</a>
-              &amp; <a href="#" target="_blank" rel="noopener">Chính sách bảo mật</a> của chúng tôi.</span>
+              để liên hệ hỗ trợ và xác nhận tham dự theo <a href="dieu-khoan.html" data-legal="Điều khoản sử dụng">Điều khoản sử dụng</a>
+              &amp; <a href="chinh-sach-bao-mat.html" data-legal="Chính sách bảo mật">Chính sách bảo mật</a> của chúng tôi.</span>
           </label>
         </div>
 
@@ -709,8 +722,8 @@
     <div class="foot-bottom">
       <span>© <span id="year">2026</span> TOMATO Education. School Enterprise Challenge Việt Nam.</span>
       <div class="foot-links">
-        <a href="#">Điều khoản</a>
-        <a href="#">Bảo mật</a>
+        <a href="dieu-khoan.html" data-legal="Điều khoản sử dụng">Điều khoản</a>
+        <a href="chinh-sach-bao-mat.html" data-legal="Chính sách bảo mật">Bảo mật</a>
       </div>
     </div>
   </div>
@@ -738,6 +751,16 @@
     </div>
   </div>
 </div>
+
+<!-- Popup Điều khoản / Chính sách bảo mật: nạp nội dung từ dieu-khoan.html / chinh-sach-bao-mat.html -->
+<dialog id="legalDialog" class="legal-dialog" aria-labelledby="legalDialogTitle">
+  <div class="legal-dialog-head">
+    <h3 id="legalDialogTitle">Điều khoản sử dụng</h3>
+    <button type="button" class="legal-dialog-close" data-legal-close aria-label="Đóng"><svg class="ic" viewBox="0 0 24 24"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="legal-dialog-body legal" id="legalDialogBody"><p class="muted center">Đang tải…</p></div>
+  <div class="legal-dialog-foot"><button type="button" class="btn btn-primary" data-legal-close>Đã hiểu, đóng lại</button></div>
+</dialog>
 
 <!-- Hộp tiểu sử ban cố vấn -->
 <dialog id="advisorDialog" class="advisor-dialog" aria-labelledby="advDlgName">

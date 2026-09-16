@@ -284,6 +284,50 @@
     restart();
   })();
 
+  /* ---------- 5b. Popup Điều khoản / Chính sách bảo mật ----------
+     Link có data-legal → mở popup và nạp #legalContent của trang đích (dieu-khoan.html,
+     chinh-sach-bao-mat.html). Không nạp được (offline, file://) thì để link mở bình thường. */
+  (function legalPopup() {
+    var dlg = document.getElementById("legalDialog");
+    var links = document.querySelectorAll("a[data-legal]");
+    if (!dlg || !links.length || typeof dlg.showModal !== "function") return;
+
+    var body = document.getElementById("legalDialogBody");
+    var title = document.getElementById("legalDialogTitle");
+    var cache = {};
+
+    function open(url, label) {
+      title.textContent = label;
+      body.innerHTML = '<p class="muted center">Đang tải…</p>';
+      dlg.showModal();
+      body.scrollTop = 0;
+      if (cache[url]) { body.innerHTML = cache[url]; return; }
+      fetch(url, { cache: "force-cache" })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+        .then(function (htmlText) {
+          var doc = new DOMParser().parseFromString(htmlText, "text/html");
+          var el = doc.getElementById("legalContent");
+          if (!el) throw new Error("no content");
+          cache[url] = el.innerHTML;
+          body.innerHTML = cache[url];
+        })
+        .catch(function () {
+          body.innerHTML = '<p class="muted center">Không tải được nội dung. <a href="' + url + '" target="_blank" rel="noopener">Mở trang đầy đủ</a>.</p>';
+        });
+    }
+
+    links.forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        if (e.metaKey || e.ctrlKey || e.shiftKey) return; // để người dùng mở tab mới nếu muốn
+        e.preventDefault();
+        open(a.getAttribute("href"), a.getAttribute("data-legal") || a.textContent.trim());
+      });
+    });
+    dlg.addEventListener("click", function (e) {
+      if (e.target === dlg || e.target.closest("[data-legal-close]")) dlg.close();
+    });
+  })();
+
   /* ---------- 6. Form tư vấn: validate tại trình duyệt → gửi Google Sheet → popup ----------
      Quy tắc (server Apps Script vẫn kiểm tra lại):
        - Họ tên: bắt buộc, ít nhất 2 từ.

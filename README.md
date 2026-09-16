@@ -15,11 +15,22 @@ python3 -m http.server 4173
 ## Cấu trúc
 
 ```
-index.html        # toàn bộ nội dung trang (icon nhúng sẵn dạng SVG)
-css/style.css     # giao diện (CSS thuần, không framework)
-js/main.js        # tương tác (không dùng thư viện ngoài)
-img/              # hình ảnh, định dạng WebP
+index.html              # toàn bộ nội dung trang (icon nhúng sẵn dạng SVG)
+dieu-khoan.html         # Điều khoản sử dụng (sinh từ "hinh anh - noi dung/dieu khoan su dung.md")
+chinh-sach-bao-mat.html # Chính sách bảo mật (sinh từ "hinh anh - noi dung/Bảo mật.md")
+apps-script.gs          # Google Apps Script nhận form → Sheet
+css/style.css           # giao diện (CSS thuần, không framework)
+js/main.js              # tương tác (không dùng thư viện ngoài)
+img/                    # hình ảnh WebP + og-image.png (1200×630) cho social share
 ```
+
+Link "Điều khoản" / "Bảo mật" (ở form và footer) mở **popup** nạp nội dung từ 2 trang trên để người dùng
+không rời trang; Ctrl/⌘+click hoặc tắt JS thì mở trang đầy đủ. Sửa nội dung: sửa thẳng 2 file HTML
+(khối `<article id="legalContent">`).
+
+Social share (Facebook/Zalo/Twitter): thẻ `og:*` + `twitter:*` trong `<head>`, ảnh `img/og-image.png`.
+Đổi ảnh xong nhớ vào [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) bấm *Scrape again*
+để Facebook xoá cache.
 
 Toàn trang **448 KB**, không gọi ra ngoài một request nào: không CDN, không font
 Google, không thư viện, không mã theo dõi. Chữ dùng phông hệ thống nên hiện ngay,
