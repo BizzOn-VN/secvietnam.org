@@ -91,7 +91,11 @@ index.html (form) → js/main.js fetch POST → Apps Script Web App → Google S
 7. Đẩy code lên, mở web, gửi thử 1 form → kiểm tra Sheet có dòng mới và email báo.
 
 Cột trong Sheet: Thời gian · Họ tên · Điện thoại/Zalo · Email · Bạn là · Trường/Tổ chức · Vai trò ·
-Nội dung · **Trạng thái** (TOMATO tự đổi tay: Mới / Đã gọi / Đã tư vấn / Bỏ) · Trang gửi · Trình duyệt.
+Nội dung · **Đồng ý Điều khoản** (cột SĐT ép định dạng văn bản để giữ số 0 đầu).
+
+Validate ngay tại trình duyệt (`js/main.js`, khối 6) trước khi gửi: họ tên ≥ 2 từ · SĐT đúng 10 số bắt đầu bằng 0
+(ô chỉ nhận số) · email đúng định dạng · Bạn là / Trường / Vai trò bắt buộc · phải tick checkbox đồng ý điều khoản.
+Lỗi báo ngay dưới từng ô. Gửi xong hiện popup "Đăng ký thành công!" (cùng kiểu popup của tomato.edu.vn), form tự xoá trắng.
 
 Đã có sẵn: token chống spam vãng lai, ô honeypot ẩn chống bot, kiểm tra SĐT/email, cắt độ dài,
 chặn cùng SĐT gửi lặp trong 60 giây, LockService tránh ghi đè. Token nằm trong JS client nên

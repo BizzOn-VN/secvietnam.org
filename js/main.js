@@ -13,7 +13,7 @@
      TOKEN:      phải TRÙNG với TOKEN trong apps-script.gs.
      Để SCRIPT_URL = "" thì form chạy chế độ demo (chỉ hiện "đã nhận", không gửi đi đâu). */
   var FORM_CONFIG = {
-    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwF6YYKXes1a2o883TL1pcqMaoizYnwFOoveuW6_2fJIV0Zxc-XC7q_61Ky2U2yfRSTAw/exec",
+    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbw53RT7n-fRWvzavf3Wod8plxUa3sPCjAerjysZbzCZIl5P8SidJz0gnX1hfmF6ienmPQ/exec",
     TOKEN: "token123@x3312ccwdze"
   };
 
@@ -284,45 +284,116 @@
     restart();
   })();
 
-  /* ---------- 6. Form tư vấn (bản demo tĩnh) ---------- */
+  /* ---------- 6. Form tư vấn: validate tại trình duyệt → gửi Google Sheet → popup ----------
+     Quy tắc (server Apps Script vẫn kiểm tra lại):
+       - Họ tên: bắt buộc, ít nhất 2 từ.
+       - Điện thoại: bắt buộc, đúng 10 chữ số, bắt đầu bằng 0.
+       - Email, Bạn là, Trường/Tổ chức, Vai trò: bắt buộc; email đúng định dạng.
+       - Checkbox đồng ý: bắt buộc. */
   (function leadForm() {
     var form = document.getElementById("leadForm");
-    var done = document.getElementById("leadDone");
-    var reset = document.getElementById("leadReset");
-    if (!form || !done) return;
+    if (!form) return;
+
+    var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+    var PHONE_RE = /^0\d{9}$/;
+    var FIELDS = ["name", "phone", "email", "audience", "org", "role", "consent"];
+
+    function fieldBox(el) { return el.closest(".field") || el.parentNode; }
+
+    function showError(el, msg) {
+      clearError(el);
+      var box = fieldBox(el);
+      if (el.type === "checkbox") box.classList.add("field-error-box"); else el.classList.add("field-error");
+      var p = document.createElement("p");
+      p.className = "field-msg";
+      p.textContent = msg;
+      box.appendChild(p);
+    }
+
+    function clearError(el) {
+      var box = fieldBox(el);
+      el.classList.remove("field-error");
+      box.classList.remove("field-error-box");
+      var old = box.querySelector(".field-msg");
+      if (old) old.remove();
+    }
+
+    function validate(el) {
+      var v = (el.value || "").trim();
+      switch (el.name) {
+        case "name":
+          if (!v) return "Vui lòng nhập họ và tên.";
+          if (v.split(/\s+/).length < 2) return "Vui lòng nhập đầy đủ họ và tên (ít nhất 2 từ).";
+          return null;
+        case "phone":
+          if (!v) return "Vui lòng nhập số điện thoại / Zalo.";
+          if (!/^\d+$/.test(v)) return "Số điện thoại chỉ gồm chữ số.";
+          if (!PHONE_RE.test(v)) return "Số điện thoại phải đủ 10 số và bắt đầu bằng 0.";
+          return null;
+        case "email":
+          if (!v) return "Vui lòng nhập email.";
+          if (!EMAIL_RE.test(v)) return "Email chưa đúng định dạng (ví dụ: ten@truong.edu.vn).";
+          return null;
+        case "audience":
+          return v ? null : "Vui lòng chọn bạn là Nhà trường hay Phụ huynh.";
+        case "org":
+          return v ? null : "Vui lòng nhập tên trường / tổ chức.";
+        case "role":
+          return v ? null : "Vui lòng nhập vai trò của bạn.";
+        case "consent":
+          return el.checked ? null : "Bạn cần đồng ý điều khoản để tiếp tục.";
+      }
+      return null;
+    }
+
+    // Ô điện thoại: chỉ nhận số, tối đa 10 ký tự
+    var phone = form.elements.phone;
+    phone.addEventListener("input", function () {
+      var digits = phone.value.replace(/\D/g, "").slice(0, 10);
+      if (phone.value !== digits) phone.value = digits;
+    });
+
+    FIELDS.forEach(function (n) {
+      var el = form.elements[n];
+      if (!el) return;
+      el.addEventListener("blur", function () {
+        var msg = validate(el);
+        if (msg) showError(el, msg); else clearError(el);
+      });
+      el.addEventListener(el.type === "checkbox" || el.tagName === "SELECT" ? "change" : "input", function () {
+        if (!validate(el)) clearError(el);
+      });
+    });
+
+    function showFormError(msg) {
+      var old = form.querySelector(".form-error");
+      if (old) old.remove();
+      var p = document.createElement("p");
+      p.className = "form-error";
+      p.textContent = msg;
+      form.insertBefore(p, form.querySelector('button[type="submit"]'));
+    }
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-
       var old = form.querySelector(".form-error");
       if (old) old.remove();
-      form.querySelectorAll(".field-error").forEach(function (el) {
-        el.classList.remove("field-error");
-      });
 
-      var missing = [];
-      ["name", "phone"].forEach(function (n) {
-        var f = form.elements[n];
-        if (!f.value.trim()) {
-          f.classList.add("field-error");
-          missing.push(n === "name" ? "Họ và tên" : "Điện thoại / Zalo");
-        }
+      var firstBad = null;
+      FIELDS.forEach(function (n) {
+        var el = form.elements[n];
+        if (!el) return;
+        var msg = validate(el);
+        if (msg) { showError(el, msg); if (!firstBad) firstBad = el; } else clearError(el);
       });
-
-      if (missing.length) {
-        var p = document.createElement("p");
-        p.className = "form-error";
-        p.textContent = "Vui lòng nhập: " + missing.join(", ") + ".";
-        form.insertBefore(p, form.lastElementChild.previousElementSibling);
+      if (firstBad) {
+        firstBad.focus({ preventScroll: true });
+        fieldBox(firstBad).scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
         return;
       }
 
-      // Chưa cấu hình SCRIPT_URL → chế độ demo, chỉ hiển thị đã nhận.
-      if (!FORM_CONFIG.SCRIPT_URL) {
-        form.hidden = true;
-        done.hidden = false;
-        return;
-      }
+      // Chưa cấu hình SCRIPT_URL → chế độ demo
+      if (!FORM_CONFIG.SCRIPT_URL) { onSuccess(); return; }
 
       var btn = form.querySelector('button[type="submit"]');
       var btnHtml = btn.innerHTML;
@@ -338,43 +409,54 @@
         org: form.elements.org.value.trim(),
         role: form.elements.role.value.trim(),
         message: form.elements.message.value.trim(),
-        website: form.elements.website ? form.elements.website.value : "", // honeypot
-        page: location.href,
-        ua: navigator.userAgent
+        consent: form.elements.consent.checked ? "yes" : "no",
+        website: form.elements.website ? form.elements.website.value : "" // honeypot
       };
 
       // Không set Content-Type JSON: để mặc định text/plain thì Apps Script không dính CORS preflight.
       fetch(FORM_CONFIG.SCRIPT_URL, { method: "POST", body: JSON.stringify(payload) })
         .then(function (res) { return res.json(); })
         .then(function (data) {
-          if (data && data.result === "ok") {
-            form.hidden = true;
-            done.hidden = false;
-          } else {
-            showError((data && data.message) || "Gửi không thành công, vui lòng thử lại.");
-          }
+          if (data && data.result === "ok") onSuccess();
+          else showFormError((data && data.message) || "Gửi không thành công, vui lòng thử lại.");
         })
         .catch(function () {
-          showError("Không kết nối được máy chủ. Vui lòng thử lại hoặc gọi hotline 0906 616 212.");
+          showFormError("Không kết nối được máy chủ. Vui lòng thử lại hoặc gọi hotline 0906 616 212.");
         })
         .then(function () {
           btn.disabled = false;
           btn.innerHTML = btnHtml;
         });
-
-      function showError(msg) {
-        var p = document.createElement("p");
-        p.className = "form-error";
-        p.textContent = msg;
-        form.insertBefore(p, form.lastElementChild.previousElementSibling);
-      }
     });
 
-    if (reset) {
-      reset.addEventListener("click", function () {
-        form.reset();
-        done.hidden = true;
-        form.hidden = false;
+    /* Popup thành công: đóng bằng X / nút Đóng / bấm nền / Esc */
+    var modal = document.getElementById("leadModal");
+
+    function onSuccess() {
+      form.reset();
+      FIELDS.forEach(function (n) { if (form.elements[n]) clearError(form.elements[n]); });
+      if (!modal) return;
+      modal.classList.remove("tmt-dong");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      var b = modal.querySelector(".tmt-modal-dong");
+      if (b) b.focus();
+    }
+
+    function closeModal() {
+      if (!modal) return;
+      modal.classList.add("tmt-dong");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    if (modal) {
+      modal.querySelectorAll(".tmt-modal-x, .tmt-modal-dong").forEach(function (b) {
+        b.addEventListener("click", closeModal);
+      });
+      modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !modal.classList.contains("tmt-dong")) closeModal();
       });
     }
   })();

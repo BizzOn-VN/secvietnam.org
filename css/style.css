@@ -132,12 +132,24 @@ input,select,textarea { font:inherit; }
   backdrop-filter:blur(12px);
   border-bottom-color:var(--line);
 }
-.nav { display:flex; align-items:center; justify-content:space-between; height:4rem; gap:1rem; }
-.brand { display:inline-flex; align-items:center; gap:.625rem; flex:none; }
-.brand img { height:2.25rem; width:auto; }
-.brand-sep { width:1px; height:1.75rem; background:var(--line); display:none; }
-.brand-vn { font-size:.875rem; font-weight:800; color:var(--brand-700); display:none; }
+/* Đầu trang: logo to để thấy rõ chương trình; cuộn xuống (.is-scrolled) thì thu về cỡ gọn */
+.nav { display:flex; align-items:center; justify-content:space-between; height:5rem; gap:1rem;
+       transition:height .3s ease; }
+.brand { display:inline-flex; align-items:center; gap:.75rem; flex:none; }
+.brand img { height:3.25rem; width:auto; transition:height .3s ease; }
+.brand-sep { width:1px; height:2.25rem; background:var(--line); display:none; transition:height .3s ease; }
+.brand-vn { font-size:1.0625rem; font-weight:800; color:var(--brand-700); display:none; transition:font-size .3s ease; }
 @media (min-width:640px){ .brand-sep,.brand-vn { display:block; } }
+@media (min-width:1024px){
+  .nav { height:6rem; }
+  .brand img { height:4.25rem; }
+  .brand-sep { height:2.75rem; }
+  .brand-vn { font-size:1.25rem; }
+}
+.site-header.is-scrolled .nav { height:4rem; }
+.site-header.is-scrolled .brand img { height:2.25rem; }
+.site-header.is-scrolled .brand-sep { height:1.75rem; }
+.site-header.is-scrolled .brand-vn { font-size:.875rem; }
 
 .nav-links { display:none; align-items:center; gap:.25rem; }
 .nav-links a {
@@ -490,17 +502,55 @@ input,select,textarea { font:inherit; }
 .input::placeholder { color:var(--ink-muted); }
 .input:focus { outline:none; border-color:var(--brand-400); box-shadow:0 0 0 3px var(--brand-100); }
 textarea.input { resize:none; }
-.field-error { border-color:#dc2626; }
+.field-error { border-color:#dc2626 !important; }
+.field-error:focus { box-shadow:0 0 0 3px #fee2e2 !important; }
+.field-msg { margin-top:.375rem; font-size:.8125rem; color:#dc2626; line-height:1.4; }
 .form-error { border-radius:var(--r-sm); background:#fef2f2; color:#dc2626;
               padding:.625rem 1rem; font-size:.875rem; }
-.lead-done {
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  text-align:center; background:rgba(20,160,138,.1);
-  border-radius:var(--r-lg); padding:2rem;
+
+/* Checkbox đồng ý */
+.consent-label { display:flex; gap:.625rem; align-items:flex-start; cursor:pointer;
+                 font-size:.8125rem; line-height:1.55; color:var(--ink-soft); }
+.consent-label input { flex:none; width:1.125rem; height:1.125rem; margin-top:.15rem; accent-color:var(--brand-500); cursor:pointer; }
+.consent-label a { color:var(--brand-600); font-weight:600; text-decoration:underline; text-underline-offset:2px; }
+.consent.field-error-box .consent-label { color:#dc2626; }
+
+/* ---------- Popup đăng ký thành công (port từ tomato.edu.vn .tmt-modal-*) ---------- */
+.tmt-modal-overlay {
+  position:fixed; inset:0; z-index:99999; background:rgba(20,20,20,.55);
+  display:flex; align-items:center; justify-content:center; padding:20px;
+  animation:tmtFade .25s ease;
 }
-.lead-done h3 { margin-top:.75rem; font-size:1.125rem; font-weight:700; }
-.lead-done p { margin-top:.25rem; font-size:.875rem; color:var(--ink-soft); }
-.lead-done .btn { margin-top:1rem; }
+.tmt-modal-overlay.tmt-dong { display:none; }
+.tmt-modal {
+  position:relative; background:#fff; border-radius:28px; max-width:520px; width:100%;
+  padding:44px 38px 34px; text-align:center; box-shadow:0 18px 50px rgba(0,0,0,.25);
+  animation:tmtZoom .3s cubic-bezier(.2,.9,.3,1.2);
+}
+.tmt-modal-x { position:absolute; top:14px; right:20px; background:none; border:0; font-size:30px;
+               line-height:1; color:#b9b9b9; cursor:pointer; padding:4px 8px; }
+.tmt-modal-x:hover { color:#707070; }
+.tmt-modal-icon { margin-bottom:14px; }
+.tmt-modal-title { font-size:26px; font-weight:800; color:#2ba84a; margin:0 0 14px; }
+.tmt-modal-text { color:#4a4a4a; font-size:16px; line-height:1.6; margin:0 0 16px; }
+.tmt-modal-note { color:#707070; font-size:15px; margin:0 0 26px; }
+.tmt-modal-note a { color:var(--brand-600); font-weight:700; text-decoration:none; white-space:nowrap; }
+.tmt-modal-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.tmt-btn { display:inline-block; padding:13px 30px; border-radius:60px; font-size:15px; font-weight:600;
+           cursor:pointer; border:2px solid transparent; text-decoration:none; transition:.3s; }
+.tmt-btn-main { background:#2ba84a; color:#fff; border-color:#2ba84a; }
+.tmt-btn-main:hover { background:#24913f; }
+.tmt-icon-circle { stroke-dasharray:160; stroke-dashoffset:160; animation:tmtVeVong .5s ease forwards; }
+.tmt-icon-check  { stroke-dasharray:48;  stroke-dashoffset:48;  animation:tmtVeTich .35s .45s ease forwards; }
+@keyframes tmtVeVong { to { stroke-dashoffset:0; } }
+@keyframes tmtVeTich { to { stroke-dashoffset:0; } }
+@keyframes tmtFade { from { opacity:0; } to { opacity:1; } }
+@keyframes tmtZoom { from { opacity:0; transform:translateY(18px) scale(.94); } to { opacity:1; transform:none; } }
+@media (max-width:600px){
+  .tmt-modal { padding:36px 22px 26px; border-radius:22px; }
+  .tmt-modal-title { font-size:22px; }
+  .tmt-modal-actions .tmt-btn { width:100%; }
+}
 
 /* ---------- Dự án ---------- */
 .projects { margin-top:3.5rem; display:flex; flex-direction:column; gap:3rem; }

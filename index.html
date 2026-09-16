@@ -53,7 +53,7 @@
 <header class="site-header" id="siteHeader">
   <nav class="container nav">
     <a href="#top" class="brand">
-      <img src="img/logo-sec.webp" alt="School Enterprise Challenge" width="400" height="158" decoding="async">
+      <img src="img/logo-sec.webp" alt="School Enterprise Challenge" width="747" height="295" decoding="async" fetchpriority="high">
       <span class="brand-sep"></span>
       <span class="brand-vn">Việt Nam</span>
     </a>
@@ -434,21 +434,22 @@
         <div class="row">
           <div class="field">
             <label class="label" for="name">Họ và tên <span class="req">*</span></label>
-            <input id="name" name="name" required class="input" placeholder="Nguyễn Văn A">
+            <input id="name" name="name" required class="input" placeholder="Nguyễn Văn A" autocomplete="name">
           </div>
           <div class="field">
             <label class="label" for="phone">Điện thoại / Zalo <span class="req">*</span></label>
-            <input id="phone" name="phone" required class="input" placeholder="09xx xxx xxx">
+            <input id="phone" name="phone" type="tel" inputmode="numeric" maxlength="10" required class="input" placeholder="0906616212" autocomplete="tel">
           </div>
         </div>
         <div class="row">
           <div class="field">
-            <label class="label" for="email">Email</label>
-            <input id="email" name="email" type="email" class="input" placeholder="email@truong.edu.vn">
+            <label class="label" for="email">Email <span class="req">*</span></label>
+            <input id="email" name="email" type="email" required class="input" placeholder="email@truong.edu.vn" autocomplete="email">
           </div>
           <div class="field">
-            <label class="label" for="audience">Bạn là</label>
-            <select id="audience" name="audience" class="input">
+            <label class="label" for="audience">Bạn là <span class="req">*</span></label>
+            <select id="audience" name="audience" required class="input">
+              <option value="">— Chọn —</option>
               <option value="school">Nhà trường / Giáo viên</option>
               <option value="parent">Phụ huynh / Học sinh</option>
             </select>
@@ -456,12 +457,12 @@
         </div>
         <div class="row">
           <div class="field">
-            <label class="label" for="org">Trường / Tổ chức</label>
-            <input id="org" name="org" class="input" placeholder="Tên trường của bạn">
+            <label class="label" for="org">Trường / Tổ chức <span class="req">*</span></label>
+            <input id="org" name="org" required class="input" placeholder="Tên trường / tổ chức của bạn" autocomplete="organization">
           </div>
           <div class="field">
-            <label class="label" for="role">Vai trò</label>
-            <input id="role" name="role" class="input" placeholder="Hiệu trưởng, giáo viên, phụ huynh...">
+            <label class="label" for="role">Vai trò <span class="req">*</span></label>
+            <input id="role" name="role" required class="input" placeholder="Hiệu trưởng, giáo viên, phụ huynh..." autocomplete="organization-title">
           </div>
         </div>
         <div class="field">
@@ -469,18 +470,20 @@
           <textarea id="message" name="message" rows="3" class="input" placeholder="Chia sẻ mong muốn của bạn về việc tham gia School Enterprise Challenge..."></textarea>
         </div>
 
+        <div class="field consent">
+          <label class="consent-label">
+            <input type="checkbox" id="consent" name="consent" required>
+            <span>Bằng việc nhấn nút “Đăng ký tư vấn”, bạn đồng ý cho phép TOMATO Children’s Home sử dụng thông tin trên
+              để liên hệ hỗ trợ và xác nhận tham dự theo <a href="#" target="_blank" rel="noopener">Điều khoản sử dụng</a>
+              &amp; <a href="#" target="_blank" rel="noopener">Chính sách bảo mật</a> của chúng tôi.</span>
+          </label>
+        </div>
+
         <button type="submit" class="btn btn-primary btn-block">
-          <svg class="ic" viewBox="0 0 24 24"><use href="#i-send"/></svg> Gửi thông tin tư vấn
+          <svg class="ic" viewBox="0 0 24 24"><use href="#i-send"/></svg> Đăng ký tư vấn
         </button>
-        <p class="center muted xs">Thông tin của bạn được bảo mật và chỉ dùng để tư vấn chương trình School Enterprise Challenge.</p>
       </form>
 
-      <div class="lead-done" id="leadDone" hidden>
-        <svg class="ic ic-xl c-teal" viewBox="0 0 24 24"><use href="#i-check-circle"/></svg>
-        <h3>Đã nhận thông tin của bạn!</h3>
-        <p>School Enterprise Challenge Vietnam sẽ liên hệ tư vấn trong thời gian sớm nhất. Cảm ơn bạn.</p>
-        <button type="button" class="btn btn-ghost" id="leadReset">Gửi thông tin khác</button>
-      </div>
     </div>
   </div>
 </section>
@@ -676,7 +679,7 @@
 
     <div class="foot-grid">
       <div>
-        <span class="foot-logo"><img src="img/logo-sec.webp" alt="School Enterprise Challenge" width="400" height="158" loading="lazy" decoding="async"></span>
+        <span class="foot-logo"><img src="img/logo-sec.webp" alt="School Enterprise Challenge" width="747" height="295" loading="lazy" decoding="async"></span>
         <p class="foot-about">School Enterprise Challenge tại Việt Nam được điều hành bởi TOMATO Education
           — Đại diện chính thức tại Việt Nam. Chương trình toàn cầu do tổ chức phi lợi nhuận
           Teach A Man To Fish tổ chức.</p>
@@ -713,6 +716,28 @@
   </div>
 </footer>
 
+
+<!-- Popup đăng ký thành công (cùng kiểu popup của tomato.edu.vn) -->
+<div class="tmt-modal-overlay tmt-dong" id="leadModal" role="dialog" aria-modal="true" aria-labelledby="leadModalTitle" aria-hidden="true">
+  <div class="tmt-modal">
+    <button type="button" class="tmt-modal-x" aria-label="Đóng thông báo">&times;</button>
+    <div class="tmt-modal-icon" aria-hidden="true">
+      <svg viewBox="0 0 52 52" width="76" height="76">
+        <circle class="tmt-icon-circle" cx="26" cy="26" r="24" fill="none" stroke="#2BA84A" stroke-width="3"/>
+        <path class="tmt-icon-check" fill="none" stroke="#2BA84A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M14 27.5 L22 35.5 L38 18.5"/>
+      </svg>
+    </div>
+    <h2 class="tmt-modal-title" id="leadModalTitle">Đăng ký thành công!</h2>
+    <p class="tmt-modal-text">
+      School Enterprise Challenge Việt Nam đã nhận được thông tin của bạn.<br>
+      Bộ phận tư vấn của TOMATO Education sẽ chủ động liên hệ lại trong thời gian sớm nhất.
+    </p>
+    <p class="tmt-modal-note">Cần hỗ trợ ngay, vui lòng gọi <a href="tel:0906616212">0906 616 212</a></p>
+    <div class="tmt-modal-actions">
+      <button type="button" class="tmt-btn tmt-btn-main tmt-modal-dong">Đóng</button>
+    </div>
+  </div>
+</div>
 
 <!-- Hộp tiểu sử ban cố vấn -->
 <dialog id="advisorDialog" class="advisor-dialog" aria-labelledby="advDlgName">
