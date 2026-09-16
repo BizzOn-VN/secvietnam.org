@@ -459,16 +459,38 @@
       };
 
       // Không set Content-Type JSON: để mặc định text/plain thì Apps Script không dính CORS preflight.
-      fetch(FORM_CONFIG.SCRIPT_URL, { method: "POST", body: JSON.stringify(payload) })
-        .then(function (res) { return res.json(); })
-        .then(function (data) {
-          if (data && data.result === "ok") onSuccess();
-          else showFormError((data && data.message) || "Gửi không thành công, vui lòng thử lại.");
+      // Apps Script bình thường trả lời 2–5s, nhưng lúc Google khởi động lạnh có thể >50s và trả HTML lỗi
+      // thay vì JSON → giới hạn SEND_TIMEOUT_MS rồi báo đúng bản chất, không để phụ huynh nhìn vòng xoay mãi.
+      // Gửi lại trong 60s cùng SĐT thì Apps Script tự bỏ trùng (THROTTLE_SECONDS) nên khuyên "bấm gửi lại" là an toàn.
+      var SEND_TIMEOUT_MS = 15000;
+      var ctrl = ("AbortController" in window) ? new AbortController() : null;
+      var timedOut = false;
+      var timer = setTimeout(function () { timedOut = true; if (ctrl) ctrl.abort(); }, SEND_TIMEOUT_MS);
+      var opts = { method: "POST", body: JSON.stringify(payload) };
+      if (ctrl) opts.signal = ctrl.signal;
+
+      var req = fetch(FORM_CONFIG.SCRIPT_URL, opts).then(function (res) { return res.text(); });
+      if (!ctrl) { // trình duyệt cũ không có AbortController: đua với đồng hồ
+        req = Promise.race([req, new Promise(function (_, rej) { setTimeout(function () { rej(new Error("timeout")); }, SEND_TIMEOUT_MS); })]);
+      }
+      req
+        .then(function (text) {
+          var data = null;
+          try { data = JSON.parse(text); } catch (err) { data = null; }
+          if (data && data.result === "ok") { onSuccess(); return; }
+          if (data && data.message) { showFormError(data.message); return; }
+          // Không phải JSON = Google trả trang lỗi (script quá hạn / đang bận)
+          showFormError("Hệ thống Google đang bận, vui lòng bấm gửi lại sau vài giây. Cần gấp: gọi hotline 0906 616 212.");
         })
         .catch(function () {
-          showFormError("Không kết nối được máy chủ. Vui lòng thử lại hoặc gọi hotline 0906 616 212.");
+          if (timedOut) {
+            showFormError("Máy chủ phản hồi quá lâu (hơn 15 giây). Vui lòng bấm gửi lại — nếu đã ghi nhận rồi, hệ thống tự bỏ trùng. Hotline: 0906 616 212.");
+          } else {
+            showFormError("Không kết nối được máy chủ (mạng gián đoạn). Vui lòng kiểm tra kết nối rồi thử lại, hoặc gọi hotline 0906 616 212.");
+          }
         })
         .then(function () {
+          clearTimeout(timer);
           sendingStop();
           btn.disabled = false;
           btn.innerHTML = btnHtml;
