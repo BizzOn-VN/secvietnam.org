@@ -86,20 +86,19 @@ animation đều ngưng. Tắt JavaScript thì nội dung vẫn đọc được 
 ## Form → Google Sheet (cài 5 phút)
 
 ```
-index.html (form) → js/main.js fetch POST → Apps Script Web App → Google Sheet (+ email báo)
+index.html (form) → js/main.js fetch POST → Apps Script Web App → Google Sheet (không gửi email — bỏ từ 17/09/2026 cho nhanh)
 ```
 
-1. Tạo Google Sheet mới, ví dụ **"SEC Vietnam - Leads"** (tài khoản nào tạo thì email báo gửi từ tài khoản đó).
+1. Tạo Google Sheet mới, ví dụ **"SEC Vietnam - Leads"**.
 2. Trong Sheet: **Extensions → Apps Script**, xoá code mẫu, dán toàn bộ file `apps-script.gs`.
 3. Sửa 2 dòng đầu mục CẤU HÌNH trong Apps Script:
    - `TOKEN`: đặt một chuỗi bí mật bất kỳ ≥ 20 ký tự.
-   - `MAIL_TO`: email nhận thông báo (đang để `info@tomato.edu.vn`, để `''` nếu không cần).
 4. Chọn hàm **`setup`** trên thanh công cụ → **Run** → cấp quyền khi Google hỏi. Tab `Leads` với dòng tiêu đề sẽ được tạo.
 5. **Deploy → New deployment** → loại **Web app** → *Execute as:* **Me**, *Who has access:* **Anyone** → Deploy → copy URL `https://script.google.com/macros/s/…/exec`.
 6. Mở `js/main.js`, mục **CẤU HÌNH FORM → GOOGLE SHEET** (ngay đầu file):
    - `SCRIPT_URL`: dán URL vừa copy.
    - `TOKEN`: dán đúng chuỗi đã đặt ở bước 3.
-7. Đẩy code lên, mở web, gửi thử 1 form → kiểm tra Sheet có dòng mới và email báo.
+7. Đẩy code lên, mở web, gửi thử 1 form → kiểm tra Sheet có dòng mới (SĐT giữ số 0 đầu).
 
 Cột trong Sheet: Thời gian · Họ tên · Điện thoại/Zalo · Email · Bạn là · Trường/Tổ chức · Vai trò ·
 Nội dung · **Đồng ý Điều khoản** (cột SĐT ép định dạng văn bản để giữ số 0 đầu).
