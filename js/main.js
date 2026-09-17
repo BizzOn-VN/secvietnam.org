@@ -119,7 +119,7 @@
 
     function calcPerPage() {
       var w = window.innerWidth;
-      return w < 640 ? 2 : w < 1024 ? 3 : 5;
+      return w < 640 ? 2 : w < 1024 ? 3 : 4;   // khớp flex-basis .advisors-track .advisor trong style.css
     }
 
     function render(animate) {

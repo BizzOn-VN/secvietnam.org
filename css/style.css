@@ -293,12 +293,15 @@ input,select,textarea { font:inherit; }
 
 /* ---------- Ban cố vấn ---------- */
 .advisors { margin-top:2.5rem; }
+/* Flex + canh giữa thay cho grid (17/09/2026): 7 cố vấn chia 4+3 trên desktop, trang cuối ít thẻ vẫn nằm giữa.
+   Số thẻ/trang phải khớp calcPerPage() trong js/main.js (2 / 3 / 4). */
 .advisors-track {
-  display:grid; grid-template-columns:repeat(2,1fr); gap:1rem;
+  display:flex; flex-wrap:wrap; justify-content:center; gap:1rem;
   transition:opacity .35s ease, transform .35s ease;
 }
-@media (min-width:640px){ .advisors-track { grid-template-columns:repeat(3,1fr); } }
-@media (min-width:1024px){ .advisors-track { grid-template-columns:repeat(5,1fr); } }
+.advisors-track .advisor { flex:0 0 calc((100% - 1rem) / 2); }
+@media (min-width:640px){ .advisors-track .advisor { flex-basis:calc((100% - 2rem) / 3); } }
+@media (min-width:1024px){ .advisors-track .advisor { flex-basis:calc((100% - 3rem) / 4); } }
 .advisors-track.is-swapping { opacity:0; transform:translateY(10px); }
 .advisor {
   display:flex; flex-direction:column; align-items:center; text-align:center;
