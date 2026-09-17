@@ -375,7 +375,9 @@ input,select,textarea { font:inherit; }
 @media (min-width:640px){ .partners-box { padding:2.5rem 2rem; } }
 .partners-grid {
   margin-top:1.5rem; display:grid; gap:1rem; justify-content:center;
-  grid-template-columns:repeat(auto-fit, minmax(16rem, 28rem));
+  /* auto-fit tính số cột theo cỡ TỐI ĐA của track → dùng 1fr + max-width lưới để 3 thẻ nằm 1 hàng (17/09/2026) */
+  grid-template-columns:repeat(auto-fit, minmax(15rem, 1fr));
+  max-width:64rem; margin-inline:auto;
 }
 .partner-card {
   display:flex; flex-direction:column; align-items:center; text-align:center; gap:.375rem;
@@ -384,7 +386,9 @@ input,select,textarea { font:inherit; }
   transition:transform .2s ease, box-shadow .2s ease;
 }
 .partner-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-card); }
-.partner-card img { width:100%; max-width:22rem; height:auto; margin-bottom:1rem; }
+/* Hàng logo cao cố định để logo ngang (Einstein) và logo vuông (ICS, LA CASA) đứng ngang hàng nhau */
+.partner-card img { width:auto; max-width:min(22rem, 100%); height:6.5rem; object-fit:contain; margin-bottom:1rem; }
+.partner-card .partner-name { min-height:2.6em; display:flex; align-items:flex-end; justify-content:center; }
 .partner-name { font-size:1rem; font-weight:700; line-height:1.3; }
 .partner-sub { font-size:.75rem; font-weight:500; color:var(--ink-muted); }
 
